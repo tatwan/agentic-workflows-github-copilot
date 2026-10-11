@@ -1,0 +1,8 @@
+# Run dbt from this folder with:  dbt build --profiles-dir .
+orders_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: orders_dbt.duckdb
+      threads: 1

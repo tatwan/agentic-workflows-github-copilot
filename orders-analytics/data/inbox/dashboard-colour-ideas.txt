@@ -1,0 +1,2 @@
+Regions: one colour each, same order everywhere.
+Avoid red and green side by side.

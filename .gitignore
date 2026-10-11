@@ -1,0 +1,42 @@
+# Instructor and working material
+instructor/
+progress/
+AGENTS.md
+CLAUDE.md
+**/solved/
+archive/
+slides/
+*.pptx
+
+# Secrets and environments
+.env
+.venv/
+venv/
+__pycache__/
+.ipynb_checkpoints/
+.pytest_cache/
+*.py[cod]
+.DS_Store
+.claude/
+.codex*/
+
+# Recreated build outputs
+*.duckdb
+*.duckdb.wal
+orders-analytics/dbt/target/
+orders-analytics/dbt/logs/
+orders-analytics/dbt/dbt_packages/
+orders-analytics/dbt/.user.yml
+orders-analytics/java/target/
+logs/
+**/remote.git/
+.idea/
+
+# Commit only the project setting that finds the parent repository
+**/.vscode/*
+!orders-analytics/.vscode/settings.json
+
+# Lab 01 disposable calculations and copied baseline profile
+orders-analytics/work/
+orders-analytics/.github/agents/lab01-supplied-context.agent.md
+.github/agents/lab01-supplied-context.agent.md

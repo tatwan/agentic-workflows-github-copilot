@@ -1,0 +1,10 @@
+order_id,order_date,region,product,units,unit_price
+1024,2026-01-01,East,Notebook,5,3.50
+1024,2026-01-01,East,Desk lamp,10,24.00
+1036,2026-01-16,West,Desk lamp,4,24.00
+1036,2026-01-16,West,Pen pack,7,4.25
+1036,2026-01-16,West,Pen pack,18,4.25
+1040,2026-01-16,South,Notebook,13,3.50
+1040,2026-01-16,South,Desk lamp,15,24.00
+1043,2026-01-16,East,Notebook,19,3.50
+1007,2026-01-27,North,Notebook,12,3.50

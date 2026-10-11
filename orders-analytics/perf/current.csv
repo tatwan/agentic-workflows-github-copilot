@@ -1,0 +1,6 @@
+# ILLUSTRATIVE values, course-authored for Lab 06 (not a real test run). One row: one endpoint's p95 in this build's run.
+endpoint,p95_ms
+GET /orders,126
+GET /orders/{id},44
+POST /orders,262
+GET /summary/monthly,395
