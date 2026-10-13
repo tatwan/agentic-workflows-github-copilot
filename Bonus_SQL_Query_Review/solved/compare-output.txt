@@ -1,0 +1,7 @@
+$ uv run python compare_rows.py running_value.sql running_value_fast.sql
+rows from running_value.sql: 85,045
+rows from running_value_fast.sql: 85,045
+in the first, not the second: 0
+in the second, not the first: 0
+same order: yes
+SAME ROWS

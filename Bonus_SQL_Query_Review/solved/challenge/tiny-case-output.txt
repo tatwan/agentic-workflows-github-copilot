@@ -1,0 +1,3 @@
+running_value.sql: 30.00 / 30.00 / 35.00
+running_value_fast.sql: 30.00 / 30.00 / 35.00
+running_value_rows.sql: 10.00 / 30.00 / 35.00

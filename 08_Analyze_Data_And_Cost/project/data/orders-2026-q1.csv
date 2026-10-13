@@ -1,0 +1,41 @@
+order_id,date,product,quantity,unit_price,amount,status
+A-1041,2026-01-03,Herbal tea 100 g,1,6.75,6.75,completed
+A-1042,2026-01-04,Black tea 100 g,1,7.25,7.25,completed
+A-1043,2026-01-06,Herbal tea 100 g,1,6.75,6.75,completed
+A-1044,2026-01-08,Teapot,1,29.00,29.00,cancelled
+A-1045,2026-01-09,Black tea 100 g,4,7.25,29.00,completed
+A-1046,2026-01-13,Herbal tea 100 g,1,6.75,6.75,completed
+A-1047,2026-01-14,Herbal tea 100 g,1,6.75,6.75,completed
+A-1048,2026-01-18,Gift box,1,34.50,34.50,completed
+A-1049,2026-01-24,Herbal tea 100 g,1,6.75,6.75,completed
+A-1050,2026-01-26,Herbal tea 100 g,1,6.75,6.75,completed
+A-1051,2026-01-27,Teapot,1,29.00,29.00,completed
+A-1052,2026-01-30,Black tea 100 g,4,7.25,29.00,completed
+A-1053,2026-02-02,Green tea 100 g,1,8.50,8.50,completed
+A-1054,2026-02-04,Herbal tea 100 g,2,6.75,13.50,completed
+A-1055,2026-02-05,Gift box,3,34.50,103.50,cancelled
+A-1056,2026-02-08,Herbal tea 100 g,3,6.75,20.25,completed
+A-1057,2026-02-09,Black tea 100 g,2,7.25,14.50,completed
+A-1058,2026-02-14,Teapot,2,29.00,58.00,completed
+A-1059,2026-02-16,Herbal tea 100 g,2,6.75,13.50,completed
+A-1060,2026-02-17,Black tea 100 g,1,7.25,7.25,completed
+A-1061,2026-02-21,Green tea 100 g,3,8.50,25.50,completed
+A-1062,2026-02-22,Green tea 100 g,3,8.50,25.50,completed
+A-1063,2026-02-23,Herbal tea 100 g,2,6.75,13.50,completed
+A-1064,2026-02-24,Gift box,2,34.50,69.00,completed
+A-1065,2026-02-27,Herbal tea 100 g,2,6.75,13.50,completed
+A-1066,2026-03-02,Herbal tea 100 g,2,6.75,13.50,completed
+A-1067,2026-03-03,Teapot,1,29.00,29.00,completed
+A-1068,2026-03-04,Herbal tea 100 g,3,6.75,20.25,completed
+A-1069,2026-03-05,Green tea 100 g,2,8.50,17.00,completed
+A-1070,2026-03-10,Green tea 100 g,2,8.50,17.00,completed
+A-1071,2026-03-14,Herbal tea 100 g,2,6.75,13.50,completed
+A-1072,2026-03-15,Green tea 100 g,6,8.50,51.00,cancelled
+A-1073,2026-03-17,Herbal tea 100 g,4,6.75,27.00,completed
+A-1074,2026-03-18,Green tea 100 g,3,8.50,25.50,completed
+A-1075,2026-03-22,Teapot,1,29.00,29.00,completed
+A-1076,2026-03-23,Herbal tea 100 g,3,6.75,20.25,completed
+A-1077,2026-03-24,Green tea 100 g,2,8.50,17.00,completed
+A-1078,2026-03-26,Green tea 100 g,1,8.50,8.50,completed
+A-1079,2026-03-27,Gift box,2,34.50,69.00,completed
+A-1080,2026-03-30,Black tea 100 g,2,7.25,14.50,completed

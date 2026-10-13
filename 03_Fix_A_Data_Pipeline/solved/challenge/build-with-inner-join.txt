@@ -1,0 +1,62 @@
+Using CPython 3.13.15
+Creating virtual environment at: .venv
+Installed 59 packages in 56ms
+10:05:13  Running with dbt=1.12.5
+10:05:13  Registered adapter: duckdb=1.11.0
+10:05:13  Unable to do partial parsing because saved manifest not found. Starting full parse.
+10:05:15  Found 3 models, 15 data tests, 2 seeds, 500 macros
+10:05:15  
+10:05:15  Concurrency: 1 threads (target='dev')
+10:05:15  
+10:05:15  1 of 20 START seed file main.raw_discounts ..................................... [RUN]
+10:05:15  1 of 20 OK loaded seed file main.raw_discounts ................................. [INSERT 14 in 0.05s]
+10:05:15  2 of 20 START seed file main.raw_orders ........................................ [RUN]
+10:05:15  2 of 20 OK loaded seed file main.raw_orders .................................... [INSERT 40 in 0.01s]
+10:05:15  3 of 20 START sql view model main.stg_discounts ................................ [RUN]
+10:05:15  3 of 20 OK created sql view model main.stg_discounts ........................... [OK in 0.03s]
+10:05:15  4 of 20 START sql view model main.stg_orders ................................... [RUN]
+10:05:15  4 of 20 OK created sql view model main.stg_orders .............................. [OK in 0.01s]
+10:05:15  5 of 20 START test not_null_stg_discounts_discount_amount ...................... [RUN]
+10:05:15  5 of 20 PASS not_null_stg_discounts_discount_amount ............................ [PASS in 0.02s]
+10:05:15  6 of 20 START test not_null_stg_discounts_order_id ............................. [RUN]
+10:05:15  6 of 20 PASS not_null_stg_discounts_order_id ................................... [PASS in 0.01s]
+10:05:15  7 of 20 START test unique_stg_discounts_order_id ............................... [RUN]
+10:05:15  7 of 20 PASS unique_stg_discounts_order_id ..................................... [PASS in 0.01s]
+10:05:15  8 of 20 START test accepted_values_stg_orders_status__complete__cancelled ...... [RUN]
+10:05:15  8 of 20 PASS accepted_values_stg_orders_status__complete__cancelled ............ [PASS in 0.01s]
+10:05:15  9 of 20 START test not_null_stg_orders_order_id ................................ [RUN]
+10:05:15  9 of 20 PASS not_null_stg_orders_order_id ...................................... [PASS in 0.01s]
+10:05:15  10 of 20 START test relationships_stg_discounts_order_id__order_id__ref_stg_orders_  [RUN]
+10:05:15  10 of 20 PASS relationships_stg_discounts_order_id__order_id__ref_stg_orders_ .. [PASS in 0.01s]
+10:05:15  11 of 20 START test unique_stg_orders_order_id ................................. [RUN]
+10:05:15  11 of 20 PASS unique_stg_orders_order_id ....................................... [PASS in 0.01s]
+10:05:15  12 of 20 START sql table model main.fct_orders ................................. [RUN]
+10:05:15  12 of 20 OK created sql table model main.fct_orders ............................ [OK in 0.04s]
+10:05:15  13 of 20 START test assert_every_complete_order_is_kept ........................ [RUN]
+10:05:15  13 of 20 FAIL 24 assert_every_complete_order_is_kept ........................... [FAIL 24 in 0.01s]
+10:05:15  14 of 20 START test not_null_fct_orders_customer_id ............................ [RUN]
+10:05:15  14 of 20 PASS not_null_fct_orders_customer_id .................................. [PASS in 0.01s]
+10:05:15  15 of 20 START test not_null_fct_orders_discount_amount ........................ [RUN]
+10:05:15  15 of 20 PASS not_null_fct_orders_discount_amount .............................. [PASS in 0.01s]
+10:05:15  16 of 20 START test not_null_fct_orders_gross_amount ........................... [RUN]
+10:05:15  16 of 20 PASS not_null_fct_orders_gross_amount ................................. [PASS in 0.01s]
+10:05:15  17 of 20 START test not_null_fct_orders_net_amount ............................. [RUN]
+10:05:15  17 of 20 PASS not_null_fct_orders_net_amount ................................... [PASS in 0.01s]
+10:05:15  18 of 20 START test not_null_fct_orders_order_date ............................. [RUN]
+10:05:15  18 of 20 PASS not_null_fct_orders_order_date ................................... [PASS in 0.01s]
+10:05:15  19 of 20 START test not_null_fct_orders_order_id ............................... [RUN]
+10:05:15  19 of 20 PASS not_null_fct_orders_order_id ..................................... [PASS in 0.01s]
+10:05:15  20 of 20 START test unique_fct_orders_order_id ................................. [RUN]
+10:05:15  20 of 20 PASS unique_fct_orders_order_id ....................................... [PASS in 0.01s]
+10:05:15  
+10:05:15  Finished running 2 seeds, 1 table model, 15 data tests, 2 view models in 0 hours 0 minutes and 0.41 seconds (0.41s).
+10:05:15  
+10:05:15  Completed with 1 error, 0 partial successes, and 0 warnings:
+10:05:15  
+10:05:15  [ERROR]: in test assert_every_complete_order_is_kept (tests/assert_every_complete_order_is_kept.sql)
+10:05:15    Got 24 results, configured to fail if != 0
+10:05:15  
+10:05:15    compiled code at target/compiled/orders/tests/assert_every_complete_order_is_kept.sql
+10:05:15  
+10:05:15  Done. PASS=19 WARN=0 ERROR=1 SKIP=0 NO-OP=0 REUSED=0 TOTAL=20
+build exit 1

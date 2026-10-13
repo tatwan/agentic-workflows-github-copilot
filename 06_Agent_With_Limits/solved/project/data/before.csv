@@ -1,0 +1,7 @@
+endpoint,p95_ms
+GET /orders,200
+GET /orders/{id},120
+POST /orders,400
+GET /customers,150
+GET /reports/monthly,800
+DELETE /orders/{id},90

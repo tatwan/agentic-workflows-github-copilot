@@ -1,0 +1,11 @@
+$ uv run dbt show --inline "select count(*) as orders, count(net_amount) as with_net, sum(net_amount) as net_total from {{ ref('fct_orders') }}"
+Previewing inline node:
+| orders | with_net | net_total |
+| ------ | -------- | --------- |
+|     11 |       11 |   2,120.1 |
+
+$ uv run dbt show --inline "select * from {{ ref('fct_orders') }} where order_id in (1, 4) order by order_id"
+Previewing inline node:
+| order_id | customer_id | order_date | gross_amount | discount_amount | net_amount |
+| -------- | ----------- | ---------- | ------------ | --------------- | ---------- |
+|        4 |         107 | 2026-03-06 |        46.55 |              10 |      36.55 |

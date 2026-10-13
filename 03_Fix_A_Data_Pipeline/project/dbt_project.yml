@@ -1,0 +1,14 @@
+name: orders
+version: "1.0.0"
+config-version: 2
+profile: orders
+
+models:
+  orders:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table
+
+flags:
+  send_anonymous_usage_stats: false

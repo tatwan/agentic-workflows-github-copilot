@@ -1,0 +1,52 @@
+$ uv run dbt build
+10:04:23  Running with dbt=1.12.5
+10:04:23  Registered adapter: duckdb=1.11.0
+10:04:23  Unable to do partial parsing because saved manifest not found. Starting full parse.
+10:04:24  Found 3 models, 2 seeds, 14 data tests, 500 macros
+10:04:24  
+10:04:24  Concurrency: 1 threads (target='dev')
+10:04:24  
+10:04:24  1 of 19 START seed file main.raw_discounts ..................................... [RUN]
+10:04:24  1 of 19 OK loaded seed file main.raw_discounts ................................. [INSERT 14 in 0.04s]
+10:04:24  2 of 19 START seed file main.raw_orders ........................................ [RUN]
+10:04:24  2 of 19 OK loaded seed file main.raw_orders .................................... [INSERT 40 in 0.01s]
+10:04:24  3 of 19 START sql view model main.stg_discounts ................................ [RUN]
+10:04:24  3 of 19 OK created sql view model main.stg_discounts ........................... [OK in 0.03s]
+10:04:24  4 of 19 START sql view model main.stg_orders ................................... [RUN]
+10:04:24  4 of 19 OK created sql view model main.stg_orders .............................. [OK in 0.01s]
+10:04:24  5 of 19 START test not_null_stg_discounts_discount_amount ...................... [RUN]
+10:04:24  5 of 19 PASS not_null_stg_discounts_discount_amount ............................ [PASS in 0.02s]
+10:04:24  6 of 19 START test not_null_stg_discounts_order_id ............................. [RUN]
+10:04:24  6 of 19 PASS not_null_stg_discounts_order_id ................................... [PASS in 0.01s]
+10:04:24  7 of 19 START test unique_stg_discounts_order_id ............................... [RUN]
+10:04:24  7 of 19 PASS unique_stg_discounts_order_id ..................................... [PASS in 0.01s]
+10:04:24  8 of 19 START test accepted_values_stg_orders_status__complete__cancelled ...... [RUN]
+10:04:24  8 of 19 PASS accepted_values_stg_orders_status__complete__cancelled ............ [PASS in 0.01s]
+10:04:24  9 of 19 START test not_null_stg_orders_order_id ................................ [RUN]
+10:04:24  9 of 19 PASS not_null_stg_orders_order_id ...................................... [PASS in 0.01s]
+10:04:24  10 of 19 START test relationships_stg_discounts_order_id__order_id__ref_stg_orders_  [RUN]
+10:04:24  10 of 19 PASS relationships_stg_discounts_order_id__order_id__ref_stg_orders_ .. [PASS in 0.01s]
+10:04:24  11 of 19 START test unique_stg_orders_order_id ................................. [RUN]
+10:04:24  11 of 19 PASS unique_stg_orders_order_id ....................................... [PASS in 0.01s]
+10:04:24  12 of 19 START sql table model main.fct_orders ................................. [RUN]
+10:04:24  12 of 19 OK created sql table model main.fct_orders ............................ [OK in 0.03s]
+10:04:24  13 of 19 START test not_null_fct_orders_customer_id ............................ [RUN]
+10:04:24  13 of 19 PASS not_null_fct_orders_customer_id .................................. [PASS in 0.01s]
+10:04:24  14 of 19 START test not_null_fct_orders_discount_amount ........................ [RUN]
+10:04:24  14 of 19 PASS not_null_fct_orders_discount_amount .............................. [PASS in 0.01s]
+10:04:24  15 of 19 START test not_null_fct_orders_gross_amount ........................... [RUN]
+10:04:24  15 of 19 PASS not_null_fct_orders_gross_amount ................................. [PASS in 0.01s]
+10:04:24  16 of 19 START test not_null_fct_orders_net_amount ............................. [RUN]
+10:04:24  16 of 19 PASS not_null_fct_orders_net_amount ................................... [PASS in 0.01s]
+10:04:24  17 of 19 START test not_null_fct_orders_order_date ............................. [RUN]
+10:04:24  17 of 19 PASS not_null_fct_orders_order_date ................................... [PASS in 0.01s]
+10:04:24  18 of 19 START test not_null_fct_orders_order_id ............................... [RUN]
+10:04:25  18 of 19 PASS not_null_fct_orders_order_id ..................................... [PASS in 0.01s]
+10:04:25  19 of 19 START test unique_fct_orders_order_id ................................. [RUN]
+10:04:25  19 of 19 PASS unique_fct_orders_order_id ....................................... [PASS in 0.01s]
+10:04:25  
+10:04:25  Finished running 2 seeds, 1 table model, 14 data tests, 2 view models in 0 hours 0 minutes and 0.33 seconds (0.33s).
+10:04:25  
+10:04:25  Completed successfully
+10:04:25  
+10:04:25  Done. PASS=19 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=19

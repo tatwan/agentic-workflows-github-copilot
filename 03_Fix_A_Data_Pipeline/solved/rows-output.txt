@@ -1,0 +1,23 @@
+10:04:10  Running with dbt=1.12.5
+10:04:10  Registered adapter: duckdb=1.11.0
+10:04:10  Found 3 models, 2 seeds, 14 data tests, 1 sql operation, 500 macros
+10:04:10  
+10:04:10  Concurrency: 1 threads (target='dev')
+10:04:10  
+Previewing inline node:
+| orders | with_net | net_total |
+| ------ | -------- | --------- |
+|     35 |       35 |  6,417.95 |
+
+10:04:11  Running with dbt=1.12.5
+10:04:11  Registered adapter: duckdb=1.11.0
+10:04:12  Found 3 models, 2 seeds, 14 data tests, 1 sql operation, 500 macros
+10:04:12  
+10:04:12  Concurrency: 1 threads (target='dev')
+10:04:12  
+Previewing inline node:
+| order_id | customer_id | order_date | gross_amount | discount_amount | net_amount |
+| -------- | ----------- | ---------- | ------------ | --------------- | ---------- |
+|        1 |         103 | 2026-03-21 |       267.36 |               0 |     267.36 |
+|        4 |         107 | 2026-03-06 |        46.55 |              10 |      36.55 |
+

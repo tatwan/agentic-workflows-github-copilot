@@ -1,0 +1,7 @@
+$ uv run python run_query.py running_value.sql --time
+runs:   0.460 s  0.441 s  0.454 s  0.451 s  0.514 s
+median: 0.454 s
+
+$ uv run python run_query.py running_value_rows.sql --time
+runs:   0.348 s  0.177 s  0.159 s  0.157 s  0.156 s
+median: 0.159 s

@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: One row per order, as received.
+    columns:
+      - name: order_id
+        data_tests: [unique, not_null]
+      - name: status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["complete", "cancelled"]
+
+  - name: stg_discounts
+    description: One row per discounted order. Orders without a discount have no row.
+    columns:
+      - name: order_id
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_orders')
+                field: order_id
+      - name: discount_amount
+        data_tests: [not_null]
+
+  - name: fct_orders
+    description: One row per complete order. Team rule, every column has a not_null test.
+    columns:
+      - name: order_id
+        data_tests: [unique, not_null]
+      - name: customer_id
+        data_tests: [not_null]
+      - name: order_date
+        data_tests: [not_null]
+      - name: gross_amount
+        data_tests: [not_null]
+      - name: discount_amount
+        description: The order's discount.
+        data_tests:
+          - not_null:
+              config:
+                severity: warn  # orders without a discount have no discount row
+      - name: net_amount
+        description: gross_amount minus discount_amount.
+        data_tests:
+          - not_null:
+              config:
+                severity: warn

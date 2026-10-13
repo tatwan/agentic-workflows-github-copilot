@@ -1,6 +1,0 @@
-# ILLUSTRATIVE values, course-authored for Lab 06 (not a real test run). One row: one endpoint's p95 in the baseline run.
-endpoint,p95_ms
-GET /orders,120
-GET /orders/{id},45
-POST /orders,210
-GET /summary/monthly,380

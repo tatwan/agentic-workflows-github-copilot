@@ -1,0 +1,14 @@
+$ uv run python compare_rows.py running_value.sql running_value_rows.sql
+rows from running_value.sql: 85,045
+rows from running_value_rows.sql: 85,045
+in the first, not the second: 25,911
+in the second, not the first: 25,911
+first rows only in running_value.sql:
+  1 | West | 50492 | 2025-01-01 | 2575.26
+  1 | West | 21633 | 2025-01-29 | 11661.69
+  1 | West | 58183 | 2025-01-31 | 14919.32
+first rows only in running_value_rows.sql:
+  1 | West | 50492 | 2025-01-01 | 690.00
+  1 | West | 21633 | 2025-01-29 | 11619.97
+  1 | West | 58183 | 2025-01-31 | 14214.73
+DIFFERENT ROWS

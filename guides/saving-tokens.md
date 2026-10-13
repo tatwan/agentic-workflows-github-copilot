@@ -62,4 +62,4 @@ costs more.
 | Business, Enterprise: Copilot settings, Usage | Usage this cycle, out of your user budget if one is set |
 | Individual plans: Billing and licensing, AI usage | Your usage over time |
 
-[Lab 08](../08_See_And_Lower_Session_Cost/README.md) measures three runs of the same task and their credits. Lab 08 is planned and will record its own measured runs.
+[Lab 08](../08_Analyze_Data_And_Cost/README.md) reads these numbers for a real task, then does the same task with one tighter request in a new chat and compares the credits.

@@ -21,12 +21,12 @@ VS Code's own advice is to make the smallest change that fixes a repeated proble
 **Instructions** are added to every request in the repository (`copilot-instructions.md`, `AGENTS.md`), or
 when a changed file matches `applyTo` or the file's description matches the task (`*.instructions.md`). They guide the model; they do not enforce
 anything. Every request re-sends them, so a long file costs credits on every turn. `/init` in a Local session
-drafts one from the repository. Example: `.github/copilot-instructions.md` in this repository.
+drafts one from the repository. [Lab 04](../04_Team_Rules/) writes a `copilot-instructions.md` and a `reviews.instructions.md`.
 
 **A skill** is a folder with a `SKILL.md` (a `name`, a `description` and instructions), plus optional scripts
 and reference files. Copilot reads only the name and description until a task matches, then loads the rest.
 The name must match the folder: lowercase letters, numbers and hyphens, 64 characters at most; the
-description 1,024 characters at most. Skills also run as slash commands (`/sql-review`). Project folders:
+description 1,024 characters at most. Skills also run as slash commands ([Lab 05](../05_Make_A_Skill/) runs `/meeting-actions`). Project folders:
 `.github/skills/`, `.claude/skills/`, `.agents/skills/`; personal folders: `~/.copilot/skills/`,
 `~/.claude/skills/`, `~/.agents/skills/`. Example: `examples/skills/release-notes/`.
 
@@ -37,10 +37,9 @@ use. A `tools:` list of `['read', 'search']` makes a reviewer that cannot change
 
 **A hook** is a command VS Code runs at a fixed point in a session, such as before every tool call. A
 PreToolUse hook can allow, deny or ask. Hooks are Preview in VS Code; try one in a test workspace first.
-Lab 07 writes one.
 
 **Prompt files** (`.prompt.md`) still load in the Local harness but are deprecated for the Copilot harness.
-Write a skill instead. Example, marked legacy: `examples/prompts/pr-summary.prompt.md`.
+Write a skill instead.
 
 ## Where each one is read
 

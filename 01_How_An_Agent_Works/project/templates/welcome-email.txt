@@ -1,0 +1,7 @@
+Subject: Welcome to Orders Hub
+
+Hi {first_name},
+
+Your Orders Hub access is ready. Start with the Getting started guide, and ask any question in #orders-hub-help.
+
+The sales operations team

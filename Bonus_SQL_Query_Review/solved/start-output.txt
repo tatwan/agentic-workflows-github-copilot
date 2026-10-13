@@ -1,0 +1,20 @@
+$ uv run python build_db.py
+customers: 300 rows
+orders: 100,000 rows
+line_items: 249,285 rows
+written: orders.duckdb
+
+$ uv run python run_query.py running_value.sql
+customer_id | region | order_id | order_date | running_value
+------------+--------+----------+------------+--------------
+          1 |   West |    50492 | 2025-01-01 |       2575.26
+          1 |   West |    97958 | 2025-01-01 |       2575.26
+          1 |   West |    85296 | 2025-01-02 |       3350.96
+          1 |   West |    60874 | 2025-01-03 |       4193.75
+          1 |   West |    84344 | 2025-01-04 |       4859.93
+          1 |   West |    38458 | 2025-01-08 |       5202.41
+          1 |   West |     1560 | 2025-01-09 |       5392.04
+          1 |   West |    27128 | 2025-01-10 |       5677.01
+          1 |   West |    35307 | 2025-01-14 |       5794.18
+          1 |   West |    71367 | 2025-01-15 |       5922.38
+(85,045 rows)

@@ -1,73 +1,112 @@
 # Agentic Workflows with GitHub Copilot: labs
 
-Hands-on labs for running GitHub Copilot as an agent in VS Code: hand it a task and check its work, give it your
-team's rules, turn a method into a skill, build a small agent with limited tools, control what it may run, and see
-what a session costs. They are written for people who use Copilot already, whether they write Java or Python, work
-with SQL and dbt, lead delivery, or do not code at all. Every lab works on one small fictional codebase,
-`orders-analytics/`, with synthetic data.
+Hands-on labs for working with GitHub Copilot as an agent in VS Code. You give Copilot a task, watch what it reads,
+changes and runs, and check the result yourself before you trust it. The labs are for anyone with a Copilot seat:
+people who write code or SQL, and people whose work is documents, folders and spreadsheets. Most of them need only
+VS Code and Copilot, and no coding. Each lab has its own small project with made-up data.
 
-Product details and local behavior were checked on 11 Oct 2026 against VS Code 1.141.0. Copilot changes often, some features used here are
-in preview, and your organisation may have turned some off; each lab says which.
+Copilot changes every month. The steps were checked in October 2026 against VS Code 1.141. Some features used here
+are in preview, and your organisation may have turned some of them off; [Lab 00](00_Setup_Check/) shows you how to
+tell.
 
 ## The labs
 
-| Lab | What you do | Status |
+| Lab | What you do | You need |
 |---|---|---|
-| [00 Environment check](00_Environment_Check/) | Check your editor, plan and project are ready | Ready for review; access gaps recorded |
-| [01 Hand Copilot a task](01_Hand_Copilot_A_Task/) | Run a task in Ask, Plan and Agent, and test the agent's tests | Planned |
-| [02 Team rules](02_Team_Rules_In_Instructions/) | Write instructions files and check they loaded | Planned |
-| [03 Review a slow query](03_Review_A_Slow_Query/) | Prove a query rewrite by its plan and its rows | Planned |
-| [04 dbt change](04_dbt_Change_Without_Weakening_Tests/) | Fix a failing dbt test in the model, not the test | Planned |
-| [05 Write a skill](05_Turn_A_Method_Into_A_Skill/) | Write a skill and test when it loads | Planned |
-| [06 Custom agent](06_Custom_Agent_With_Limited_Tools/) | Build a reporting agent with only the tools it needs | Planned |
-| [07 Control what runs](07_Control_What_An_Agent_Runs/) | Compare an approval rule with a hook that blocks | Planned |
-| [08 Session cost](08_See_And_Lower_Session_Cost/) | Measure credits and compare runs by cost per solved task | Planned |
-| [09 Work without code](09_Agent_Work_Without_Code/) | Analyse a file, sort a folder, turn notes into actions | Planned |
-| [10 Check a customization](10_Check_A_Customization_Helps/) | Test whether a shared skill helps before you share it | Planned |
+| [00 Setup check](00_Setup_Check/) | Work down a checklist: Copilot signed in, the mode picker, one file read, one command you approve | Copilot (Python and uv rows optional) |
+| [01 How an agent works](01_How_An_Agent_Works/) | Ask where an old product name appears in a set of team documents, then hand over the rename and watch the agent look, act and check | Copilot |
+| [02 Plan then build](02_Plan_Then_Build/) | Ask for a plan, fix the step that is vague, let the agent build a CSV export and run the tests, then review the diff and the file | Copilot + Python |
+| [03 Fix a data pipeline](03_Fix_A_Data_Pipeline/) | Fix a failing dbt build without loosening its tests: say which file may change, then check the rows yourself | Copilot + uv |
+| [04 Team rules](04_Team_Rules/) | Ask for the same review before and after you add your team's rules, and see a rule for review files stay out of a reply | Copilot |
+| [05 Make a skill](05_Make_A_Skill/) | Turn meeting notes into actions once, save the method as a skill and run it with `/meeting-actions` | Copilot |
+| [06 Agent with limits](06_Agent_With_Limits/) | Make a reviewer agent that can only read, ask it to fix a bug and see that it cannot, then approve the normal agent's command | Copilot (Python optional) |
+| [07 Organise files and notes](07_Organize_Files_And_Notes/) | Get a plan as a table before anything moves, catch a look-alike that is not a duplicate, and approve one batch of moves | Copilot |
+| [08 Analyze data and cost](08_Analyze_Data_And_Cost/) | Turn a CSV of orders into a one-page report with a chart, check one number, then compare what two requests cost | Copilot |
+| [Bonus: SQL query review](Bonus_SQL_Query_Review/) | Ask for a faster version of a slow query, prove it returns the same rows, then time it | Copilot + uv |
 
-Learning paths: developers 00, 01, 02, 05, 07, 08 · data 00, 01, 03, 04, 05 · delivery 00, 01, 06, 10 ·
-no code 00, 01, 09, 08.
+Where to start:
+
+- **Everyone:** 00, 01, 04, 05, 07 and 08.
+- **Developers:** add 02 and 06.
+- **Data and SQL work:** add 03 and the SQL bonus.
+
+Do Lab 00 first. After that each lab stands on its own; the numbers give a sensible order, not a required one.
 
 ## Setup
 
-You need VS Code with GitHub Copilot signed in, Git, and [uv](https://docs.astral.sh/uv/). Labs 02 and 07 also need
-a Java 21 JDK (the project's Maven Wrapper downloads Maven). Then:
+### What you need
 
-1. Clone this repository.
-2. Open the `orders-analytics` folder in VS Code (not the repository root), so Copilot reads its `.github/` files
-   while the lab guides sit outside its normal project context. Folder choice is not an access restriction; inspect the agent’s file reads.
-3. In a terminal in that folder, run `uv sync --locked`.
-4. Follow [Lab 00](00_Environment_Check/).
+| Setup | You need | Labs |
+|---|---|---|
+| Copilot only | VS Code with the GitHub Copilot extension, signed in with the account that holds your Copilot seat | 00, 01, 04, 05, 06, 07, 08 |
+| + Python | Python 3.10 or newer. Nothing to install with it: these labs use only what ships with Python | 02, and the optional tests in 06 |
+| + uv | [uv](https://docs.astral.sh/uv/getting-started/installation/). The first time a lab runs, it downloads dbt or DuckDB, and a Python if your computer has none | 03 and the SQL bonus |
 
-The local route is verified. A Codespaces route is not offered yet: its Copilot harness, hooks and CLI could not be tested for this project. No devcontainer configuration is shipped.
+Most people never need more than the first row. Everything runs in VS Code on your own computer; there is no
+Codespaces setup.
 
-Our three baseline read-only runs used Auto on a Copilot Student seat, which routed to `mai-code-1.1-flash`; the worked challenge used Auto and routed to `gpt-5.6-luna`. Learners use what their picker offers; availability depends on account and policy.
+### Get the files
+
+1. On this repository's GitHub page, select **Code > Download ZIP** and unzip it anywhere. You do not need Git.
+2. Work through [Lab 00](00_Setup_Check/). It ends with a table of the labs your setup is ready for.
+
+If you prefer Git, clone the repository instead. For Labs 04, 05 and 06, copy the lab's `project` folder to a place
+outside the clone and open the copy. Those labs add a rule file, a skill or an agent inside `project`, and inside a
+clone Copilot may look for them at the top of the repository and miss them. A ZIP download needs no copy.
+
+### Open one lab at a time
+
+Each lab folder holds a `README.md` and a `project` folder. In VS Code choose **File > Open Folder** and open the
+lab's `project` folder, not the lab folder or the whole repository. Read the README somewhere else, for example on
+GitHub in your browser. Copilot then works on the lab's files, and the lab text and the prepared examples next to
+`project` are not part of what it searches.
+
+If VS Code asks whether you trust the authors of the folder, trust it: Copilot's agent features are off in a folder
+you have not trusted.
+
+Every Copilot request uses part of your monthly allowance of AI credits. A lab sends a handful of short requests.
+[Lab 08](08_Analyze_Data_And_Cost/) shows where to see what a task cost.
 
 ## How to read a lab
 
-Each lab is a guide (`GUIDE.md`) with numbered steps, what to look for after each one, and a checkpoint table.
-Copilot's answers differ from run to run, so checkpoints list facts to check, with what we saw over several runs,
-never exact wording. Built labs report the AI credits their parts used in our runs. Only Lab 00 is rebuilt in this revision; the remaining folders hold planned notices and any preserved fixtures. Each one ends with a short
-challenge and a list of resources.
+Every lab README has the same shape.
+
+- **Goal:** what you will be able to do, and the moment in the lab that shows it. **What you will learn** lists four
+  abilities; **What you can do now**, near the end, answers the same list.
+- **Before you start:** what to open, what the project holds, and how to start over.
+- **Parts A to D:** Part A usually has you work out the right answer yourself, before Copilot starts, so you have
+  something to check its work against. Each later step gives a short request to paste into the chat, then what to
+  look for in the reply and a checkpoint.
+- **If your run looks different:** what to do when Copilot takes another route.
+- **Challenge**, then **Going further** (optional ideas) and **Resources**.
+- **`solved/`**, next to the README: the answers to the lab and the challenge. Open it when you have finished,
+  not before: the lab teaches by having you check Copilot's work against what you worked out yourself.
+
+Copilot's replies change from run to run, so checkpoints list facts to check, such as a number, a file name or
+whether a file changed, never exact wording. Some lessons depend on Copilot making a mistake it may not make on your
+run. For each of those, the lab's `resources/` folder holds a prepared example of the mistake, and the README tells
+you when to open it.
+
+You do not write code. Where something runs, Copilot proposes the command, you read it and allow it, and the README
+says what the result means. The labs call the read-only mode **Plan** and the mode that acts **Interactive**; some
+setups show **Ask** and **Agent** instead.
+
+To start over, hover over your first request in the chat and select **Restore Checkpoint**, or copy the `project`
+folder again from the ZIP or your clone. Lab 07 is the exception: Copilot moves files with terminal commands, which a
+checkpoint does not undo, so there you copy the folder again.
 
 ## Project files
 
-`orders-analytics/` holds the Python report and its tests, a Java pricing module, a seeded DuckDB database builder,
-dbt seeds and models, illustrative performance files, and inbox data. All data is synthetic and authored for
-these labs under the [MIT licence](LICENSE). The checked-in files are reused from the October 6 build; databases,
-Python environments and Java/dbt outputs are recreated locally.
+| Folder | What it holds |
+|---|---|
+| `NN_Lab_Name/project/` | The lab's starting files: the folder you open in VS Code |
+| `NN_Lab_Name/resources/` | Prepared examples, and files a lab asks you to copy in |
+| `NN_Lab_Name/solved/` | The answers: a finished `project/` or the expected results, and the challenge answers |
+| [`examples/`](examples/) | Short customization files to adapt for your own repository: file-type instructions, a skill and a read-only agent |
+| [`guides/`](guides/) | Two reference pages: [which customization file fits which problem](guides/customization-options.md) and [how AI credits are counted](guides/saving-tokens.md) |
 
-The Maven Wrapper is Apache Maven Wrapper 3.3.4 (Apache License 2.0), using the official `only-script` distribution.
-Its Unix and Windows scripts are in `orders-analytics/java/`; the Python environment and lock are in the project
-root. Package changes start in `pyproject.toml`; update the lock and regenerate `requirements.txt` with
-`uv export --frozen --no-dev --no-emit-project --no-hashes --format requirements-txt -o requirements.txt` from
-`orders-analytics/`.
+All data is synthetic, written for these labs, and shared under the [MIT licence](LICENSE).
 
-The project’s `.github/` holds its conventions and later customizations. A small `.github/copilot-instructions.md`
-at the parent Git root links to those conventions because the Copilot harness discovers always-on repository
-instructions there. The editor may also load ancestor instructions; this folder arrangement does not isolate
-an agent’s filesystem access.
-
-No teaching branches are needed. Each later guide will specify its starting state on `main` and any fixture
-copied from that lab’s `resources/`. No `.env` is needed for setup; Lab 07’s fake file is stored as `fake.env`
-outside the project and is copied in only for that exercise.
+The two uv labs pin their packages in `pyproject.toml` and `uv.lock` inside `project/`, so every computer gets the
+same versions: dbt-core 1.12.5 with dbt-duckdb 1.11.0 in Lab 03, and DuckDB 1.5.6 in both. What they create while
+they run (`.venv/`, `orders.duckdb`, dbt's `target/` and `logs/`) stays in your copy and is ignored by Git.
