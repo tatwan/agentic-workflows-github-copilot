@@ -19,11 +19,13 @@ folder and see the review rule stay out of it: a file-type rule applies only whe
 You need VS Code with GitHub Copilot signed in ([Lab 00](../00_Setup_Check/) checks this). Nothing else to install,
 and no coding.
 
-1. In VS Code choose **File > Open Folder** and open the `project` folder inside this lab
-   (`04_Team_Rules/project`). Keep this README open elsewhere, for example on GitHub, so Copilot works on the
-   team's files, not on the lab text.
-2. If VS Code asks whether you trust the folder's authors, trust it.
-3. Open the Chat view and start a **New Chat**. In the mode picker choose **Interactive** (on a Local session,
+1. If you cloned this repository with Git, first copy this lab's `project` folder outside the repository and use
+   the copy: inside a clone, Copilot may look for rule files at the top of the repository and miss yours. A ZIP
+   download needs no copy.
+2. In VS Code choose **File > Open Folder** and open the `project` folder (`04_Team_Rules/project`). Keep this
+   README open elsewhere, for example on GitHub, so Copilot works on the team's files, not on the lab text.
+3. If VS Code asks whether you trust the folder's authors, trust it.
+4. Open the Chat view and start a **New Chat**. In the mode picker choose **Interactive** (on a Local session,
    **Agent**).
 
 The project belongs to a small orders team:
@@ -166,7 +168,7 @@ Checkpoint: the reply has no Evidence, Decision or Next step headings and no `Re
 
 | What you see | What to do |
 |---|---|
-| References does not list `copilot-instructions.md`, and the review ignores the rules | Check the path: `.github` must sit directly inside the folder you opened, next to `requests`. Open **Configure Chat** (the gear in the Chat view) > **Instructions** to see the rule files Copilot found. If you cloned this repository with Git, Copilot may look for rules at the top of the repository instead: copy the `project` folder somewhere outside the repository, open the copy and repeat Part B |
+| References does not list `copilot-instructions.md`, and the review ignores the rules | Check the path: `.github` must sit directly inside the folder you opened, next to `requests`. Open **Configure Chat** (the gear in the Chat view) > **Instructions** to see the rule files Copilot found. If you cloned the repository, copy `project` outside it (Before you start, step 1) and repeat Part B |
 | There is no References list under the reply | Expand the steps and look for a read of the rule file, or check Configure Chat > Instructions |
 | The review still uses its own headings after Part C | Check the file name ends in `.instructions.md`, the file is in `.github/instructions/`, and the header line is exactly `applyTo: "reviews/**"`. Then start a New Chat |
 | References for the reply lists the review rule | Look in the steps for a file in `reviews/` that the agent changed. Start a New Chat and ask again |
