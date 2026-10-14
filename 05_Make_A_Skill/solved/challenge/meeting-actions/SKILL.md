@@ -9,7 +9,8 @@ argument-hint: "[notes file]"
 1. Read the notes file named in the request. If no file is named, or the file does not exist, say so and stop.
 2. Find every commitment and every piece of unresolved work, in the order they appear. Leave out observations and
    finished work with no follow-up.
-3. Write the actions to a file with the same name in the `actions/` folder, as a table with four columns:
+3. Read [the output template](templates/actions.md). Write the actions to a file with the same name in the
+   `actions/` folder, using that layout and these four columns:
    - **Action:** a short sentence. Keep conditions ("once the export function is merged") and relative timing
      ("next week", "before the release") in the action.
    - **Owner:** the name exactly as the notes spell it. If nobody owns it, `unassigned`.

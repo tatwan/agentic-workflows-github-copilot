@@ -167,8 +167,8 @@ approvals you gave for longer than once.
 |---|---|
 | **reviewer** is not in the agent picker | Check the path: `.github/agents/reviewer.agent.md`, directly inside the folder you opened, with the name ending in `.agent.md`. Run **Developer: Reload Window**. If you cloned the repository, copy `project` outside it (Before you start, step 1) |
 | The reviewer changed a file | Check which agent the picker shows: Interactive was probably selected. Select **Undo**, choose **reviewer** in a New Chat and repeat Part B |
-| The agent did not ask before running the tests | Your permissions are set to Allow all, or an earlier **Always** answer covers this command. Switch to **Manual permissions** or run **Chat: Reset Tool Confirmations**, then ask again |
-| `python` is not found, or `No module named latency_check` | On Windows try `py -m unittest`. The tests must run from the `project` folder |
+| The agent did not ask before running the tests | Check the actual permission setting and any earlier approvals. Some read-only commands run without a prompt even with Manual permissions; inspect the steps rather than assuming every command must ask |
+| `python` is not found, or `No module named latency_check` | On Windows try `py -m unittest`; on macOS/Linux try `python3 -m unittest`. Run from the `project` folder |
 | The skipped agent says the tests pass | It did not run them. Ask: `Did you run the tests?` |
 
 ## What you can do now
@@ -182,8 +182,7 @@ approvals you gave for longer than once.
 
 1. **An agent that runs but does not edit.** In a fresh copy of `project`, add
    `.github/agents/test-runner.agent.md` with `tools: ['read', 'search', 'execute']` and the instruction to run the
-   tests and report what they print. Ask it to run the tests, then to change `>=` to `>`. Expected: the tests wait
-   for approval and pass (5 tests). With no edit tool, it either says it cannot edit or proposes a terminal command
+   tests and report what they print. Ask it to run the tests, then to change `>=` to `>`. Expected: the command may wait for approval, and the starting tests pass (5 tests). With no edit tool, it either says it cannot edit or proposes a terminal command
    that rewrites the file: skip that one. A command can change files, so `execute` is broad and your approval is the
    control left.
 2. **A reviewer that saves its review.** Ask the reviewer: `Write your review to reviews/latency.md.` Expected: no

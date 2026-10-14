@@ -15,3 +15,7 @@ they are not a saved Copilot chat.
   `Total: 5 actions, 1 unassigned.`, 21 May `Total: 5 actions, 0 unassigned.`
 
 The finished skill without the total line is in `../resources/meeting-actions/SKILL.md`.
+
+The core skill includes a linked `templates/actions.md`. For the fresh-chat check, move earlier action lists
+outside the project first. An unrelated README summary should create no action list. Automatic skill selection
+is a separate observation from explicit slash invocation; output agreement alone does not prove loading.

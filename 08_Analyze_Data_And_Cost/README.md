@@ -11,7 +11,7 @@ do the same job again with one tighter request in a new chat, and compare the tw
 
 - Ask an agent for a report from a CSV file and open what it made, chart included.
 - Work out one number from the data before you read the report, and check the report against it.
-- Read what a chat cost: the credits for each response, the session and the month.
+- Read what a chat cost: the credits for each response, the session and the month where the UI exposes them.
 - Write one request that says what counts, what to produce and what not to do, attach the file it needs, and
   compare it with your first try.
 
@@ -61,17 +61,19 @@ agent used, even if the report does not say.
 
 ## Part B: Ask for the report
 
-Ask the way you would ask a colleague, in one line, and watch what the agent decides on its own.
+Bound the output before delegating, so the agent spends its work on the report rather than choosing formats or installing tools.
 
 1. In the chat's mode picker choose **Interactive** (on a Local session, **Agent**).
 2. Paste this request:
 
    ```text
-   Make a one-page report for the shop owner from data/orders-2026-q1.csv: revenue by month as a chart, and revenue by product.
+   Write a one-page Markdown report in report/q1-sales.md from data/orders-2026-q1.csv.
+   Include revenue by month as report/revenue-by-month.svg, shown in the report, and revenue by product as a table.
+   Use only the supplied data and tools already available; install nothing. State how you handle order status.
    ```
 
 3. Expand the steps. The agent reads the CSV, then chooses a file format, a way to draw the chart and how to do
-   the sums. Your request settled none of those.
+   the sums. Your request fixes Markdown, SVG and no installs, but leaves the sales rule for the agent to explain.
 4. If the chat stops to ask before running a command, read the command first:
    - It installs something (`pip install`, `npm install`): choose **Skip** and reply
      `No installs, please. Write the report in Markdown with the chart as an SVG file.`
@@ -81,8 +83,7 @@ Ask the way you would ask a colleague, in one line, and watch what the agent dec
    (**Ctrl+Shift+V**, **Cmd+Shift+V** on macOS). For an HTML file, right-click it, choose **Reveal in File
    Explorer** (**Reveal in Finder** on macOS, **Open Containing Folder** on Linux) and open it in your browser.
 
-Checkpoint: a report file and a chart of revenue by month, with a product breakdown. Format, file names and layout
-vary from run to run. If the report has no product breakdown, reply `Add revenue by product as a table.` before
+Checkpoint: `report/q1-sales.md` links to `report/revenue-by-month.svg` and has a product breakdown. Layout varies from run to run. If the report has no product breakdown, reply `Add revenue by product as a table.` before
 you go on.
 
 ## Part C: Check one number
@@ -121,23 +122,23 @@ you trust anything else in the report.
 
 ## Part D: Read the cost, then do it in one request
 
-Every response uses AI credits from your monthly allowance (1 credit is 0.01 US dollars). The more the model reads
-and writes, the more it costs.
+Model requests can consume AI credits; usage depends on the model, input, output and caching. Check the current
+[usage documentation](https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-individuals)
+for your plan. Compare the whole task after both reports pass the same factual checks.
 
 1. **Each response.** Hover over each of Copilot's responses in this chat, from Part B to Part C. A small panel
    shows the credits that turn used. Write them down, one line per turn.
-2. **The session.** Hover over or select the context window control in the chat input. It shows the chat's total
-   credits and how many tokens (pieces of text the model reads) the conversation holds. If your Chat view has no
-   such control, add up the numbers from step 1.
+2. **The session.** If present, hover over the context window control in the chat input for tokens and session
+   usage. Otherwise add the response credits from step 1. If no per-response credits are visible, write
+   `unavailable`; a monthly dashboard percentage cannot isolate one lab.
 3. **The month.** Select the Copilot icon in the Status Bar at the bottom of VS Code. The dashboard shows how much
    of this month's allowance you have used.
-4. Look at the follow-up from Part C: two lines, but the model read far more. Each turn sends the model the whole
-   conversation so far: your requests, the CSV, the report it wrote, any command output. So a follow-up that fixes
-   a vague request is never free.
-5. Now ask once, saying up front what Parts B and C had to add later, and hand the agent the file instead of
-   letting it look for it. Start a **New Chat** (it starts with no history) and keep **Interactive** and the same
-   model. Drag `data/orders-2026-q1.csv` from the Explorer onto the chat input, or select **Add Context** >
-   **Files & Folders**, or type `#` and pick the file. It shows above the input as attached. Then paste:
+4. A short follow-up can still carry earlier context. Copilot may select, cache or compact that context;
+   the visible transcript does not tell you the exact billed input. Record what the UI exposes, without guessing.
+5. Copy the original untouched `project` into a separate folder and open that as the workspace. Do not copy the
+   first report, scripts or chart. Keep the first folder and its history for comparison. Choose the same fixed
+   model, mode and tool selection; if you must use Auto, label the comparison uncontrolled. Start a **New Chat**
+   and attach the CSV with **Add Context > Files & Folders**. Then paste:
 
    ```text
    Write a one-page Markdown report for the shop owner in report/q1-sales.md from the attached orders file.
@@ -157,15 +158,17 @@ and writes, the more it costs.
    | Turns you sent | | 1 |
    | Commands it asked to run | | |
    | Gift box right the first time? | | |
+   | All Part C checks pass, and SVG opens? | | |
+   | Model, mode and tools | | |
    | Credits, all turns | | |
 
 Checkpoint: the second chat's report has the same numbers as Part C's checkpoint, after one request. You have the
-credits for both chats side by side.
+credits for both chats side by side, or an explicit `unavailable` entry.
 
-This is an informal comparison, one run of each: credits for the same request vary, and **Auto** may pick a
-different model each time. What usually holds is the shape. A request that names the data, the rule, the output and
-the limits leaves the agent less to decide and you less to fix, and every turn you avoid is one less re-reading of
-the conversation.
+This is one observation of each workflow. Include repairs, permission waits and any reruns in your notes.
+If one report is wrong, repair it and count that work before comparing. A tighter request can reduce avoidable
+work; it does not guarantee lower credits or a faster result. Repeat from untouched copies before drawing a wider
+conclusion. Keep your first folder: a New Chat in the same folder would still see its generated files.
 
 ## If your run looks different
 
@@ -180,7 +183,7 @@ the conversation.
 
 - Ask Copilot for a report from a CSV file and open it, chart included.
 - Work out one number from the data first and use it to test the report's rule and its sums.
-- Read the credits for a response, a chat and the month.
+- Read the credits for a response, a chat and the month where the UI exposes them.
 - Write a request that settles the rule, the output and the limits up front, attach the file it needs, and compare
   what it cost with your first try.
 
@@ -188,7 +191,8 @@ the conversation.
 
 1. **The same question in two places.** In your first chat, ask `Which product sold the most units?` Then, in a
    **New Chat**, ask `Which product sold the most units in data/orders-2026-q1.csv? Count completed orders only.`
-   Expected both times: Herbal tea 100 g, 31 units. Compare the credits: the long chat sends its history along.
+   Expected both times: Herbal tea 100 g, 31 units. Move any prior report outside the fresh workspace. Check correctness before comparing credits, and record
+   `unavailable` if the UI exposes no per-task usage.
 2. **Check a number the agent worked out.** Slips hide in derived numbers. Ask in your second chat:
    `By how much did March revenue change compared with February?` Check it with a calculator from the Part C
    checkpoint: (321.00 − 282.50) / 282.50. Expected: up about 13.6%. If the
@@ -198,6 +202,9 @@ Answers to compare with when you finish, for the lab and the challenge: [`solved
 
 ## Going further
 
+- **Let the agent choose the format.** In a separate untouched copy, ask only for a one-page sales report with
+  a monthly chart and product totals. Compare the extra choices with Part B. If it asks for installs, skip them
+  and use Markdown/SVG. This is an optional exploration, with no promised speed or failure.
 - **Research from sources, with a check.** The same habit works on the web. In a New Chat, paste:
 
   ```text
@@ -209,8 +216,8 @@ Answers to compare with when you finish, for the lab and the challenge: [`solved
   VS Code asks before it fetches each page; read the address and allow it once. Then pick one bullet, open its page
   and find the sentence it came from. A bullet you cannot find on its page is the agent's own idea, however
   reasonable it sounds.
-- **Shorter chats.** Start a new chat when you change topic. `/compact` replaces older turns with a summary, and
-  `/fork` (or **Fork Conversation**) branches a chat without repeating what came before.
+- **Shorter chats.** Start a new chat when you change topic. If offered, `/compact` summarizes older turns;
+  inspect the summary for lost decisions. Forking retains earlier context in the branch.
 - **Model choice.** Hover over a model in the model picker to see its cost tier. A cheaper model that needs two
   extra follow-ups can cost more than a stronger one that gets it right the first time.
 - **Make the rule permanent.** Put "count completed orders only" in `.github/copilot-instructions.md`

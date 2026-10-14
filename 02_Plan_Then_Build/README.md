@@ -70,17 +70,18 @@ fix in the plan than in the code.
 2. Paste this request:
 
    ```text
-   Finance wants the monthly summary as a CSV file they can open in a spreadsheet:
-   one row per month with month, orders, units and revenue, written to a file name I choose.
-   Reuse monthly_summary and add tests. Plan it first; don't change any files yet.
+   Add CSV export via python -m orders.report --output FILE, with month, orders, units and revenue.
+   Reuse monthly_summary and only the Python standard library.
+   Keep tests/test_report.py and data/orders.csv unchanged; put new tests in tests/test_export.py.
+   Plan first; do not change project files yet.
    ```
 
    The request leaves out the two decimals on purpose: real requests often miss something, and the plan is where
    you catch it.
 
-3. Expand the steps in the chat. It reads `report.py`, the tests and the project README. It may ask
-   you a question first, for example how the export should be run. A short answer is enough:
-   `A command: python -m orders.report --output FILE`.
+3. Expand the steps: it reads the report, tests and project README. The command-line interface is part of
+   your request. If it proposes only an importable function, ask it to include the requested command too.
+   Keep the original tests unchanged; a separate file makes the new checks easy to review.
 4. When the plan is ready, a **Review Plan** card appears. Select **Open Full Plan** to open the plan in the editor.
    Read it for three things:
    - **Files:** `orders/report.py` and a new test file. `tests/test_report.py` should not be on the list.
@@ -89,15 +90,17 @@ fix in the plan than in the code.
 5. Edit the plan. Add these lines to its steps (or change its test step to say this), then save the file:
 
    ```text
-   Write revenue with exactly two decimals, as finance's import expects (2085.70, not 2085.7).
-   Add a test that exports data/orders.csv and checks that the January line of the file
-   is exactly 2026-01,8,174,2085.70.
+   Format revenue with exactly two decimals.
+   Test the exported January line as text: 2026-01,8,174,2085.70.
+   Also export a new one-order case worth Decimal("1.0") and one worth Decimal("1").
+   Both must end in ,1.00; checking only already-two-decimal inputs misses this requirement.
    ```
 
-   If the plan already says two decimals, check its tests and add the second line if no test compares the text.
+   If two decimals are already in the plan, check that it includes the new one-decimal and integer cases.
+   `str(Decimal("1.0"))` remains `1.0`: exact arithmetic alone does not choose a display format.
 
 Checkpoint: the plan changes `orders/report.py`, adds a new test file, leaves the five existing tests alone, says
-two decimals and includes a test on the file's text.
+two decimals and includes text tests on the real January line and new one-decimal/integer inputs.
 
 ## Part C: Let the agent build and run the tests
 
@@ -107,7 +110,7 @@ Now the agent does the work, and it checks the work with the tests.
 2. Watch the steps. The agent repeats the cycle from Lab 01: it **looks** at the files, **acts** by editing
    `orders/report.py` and creating the test file, and **checks** by running `python -m unittest`. VS Code asks you
    before it runs a command. Read the command first: this one runs the tests and does not edit your code, so allow it.
-3. Read the result in the chat or the terminal. It ends like this:
+3. Read the result in the chat or terminal. A successful run ends with the test count and `OK`, for example:
 
    ```text
    Ran 9 tests in 0.012s
@@ -115,7 +118,7 @@ Now the agent does the work, and it checks the work with the tests.
    OK
    ```
 
-   Your number differs: the five existing tests plus the agent's new ones. If a test fails, the agent normally
+   This is an example output. Your count is the five existing tests plus the new tests the agent wrote. If a test fails, the agent normally
    reads the failure, changes the code and runs the tests again.
 4. If the agent did not run the export, ask it:
 
@@ -136,7 +139,9 @@ The tests are green. Whether finance's request is met is your decision.
    - The line that writes revenue formats it with two decimals, for example `f"{revenue:.2f}"` or
      `quantize(Decimal("0.01"))`. A conversion to `float`, as in `round(float(revenue), 2)`, drops the zero.
    - `tests/test_report.py` is not in the list of changed files.
-2. Open the new test file and find the test you asked for: the text `2026-01,8,174,2085.70` written out in full.
+2. Open `tests/test_export.py`. Find the real January-line check and the small cases using `Decimal("1.0")`
+   and `Decimal("1")`. Both must assert `1.00` in the written CSV text. A test that starts from `1.00` alone
+   can pass when the exporter merely calls `str` on a Decimal. Confirm the original test file is unchanged.
 3. Open `monthly.csv`. It has seven lines: the header and one row per month.
 
    | month | orders | units | revenue |
@@ -162,8 +167,8 @@ fail if a zero went missing. If something is wrong, tell the agent what you foun
 | What you see | What to do |
 |---|---|
 | The mode picker shows **Ask** and **Agent** instead of **Interactive** | You are in a Local session. Plan works the same; to build, select **Start Implementation** instead of **Implement Plan** |
-| There is no **Open Full Plan** | Type the two lines from Part B, step 5 into the card's feedback box and select **Submit Feedback**, or send them as a message. Wait for the revised plan |
-| `python` is not found | On Windows the command is often `py -m unittest`. Tell the agent which command works, or install Python 3.10 or newer |
+| There is no **Open Full Plan** | Type the four lines from Part B, step 5 into the card's feedback box and select **Submit Feedback**, or send them as a message. Wait for the revised plan |
+| `python` is not found | On macOS/Linux try `python3 -m unittest` and `python3 -m orders.report --output monthly.csv`. On Windows the command is often `py -m unittest`. Tell the agent which command works, or install Python 3.10 or newer |
 | `ModuleNotFoundError: No module named 'orders'`, or `NO TESTS RAN` | The tests ran from the wrong folder. Ask: `Run the tests from the project folder with python -m unittest` |
 | The agent changed `tests/test_report.py` | Restore the checkpoint and add to the plan: `Do not change the existing tests` |
 | Your file already says `2085.70`, but no test checks the text | The code is right today. Without the test, a later change can drop the zero and every test stays green. Ask the agent to add the test |

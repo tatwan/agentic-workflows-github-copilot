@@ -22,7 +22,8 @@ and no coding.
 
 1. In VS Code choose **File > Open Folder** and open the `project` folder inside this lab
    (`01_How_An_Agent_Works/project`). Keep this README open somewhere else, for example on GitHub in your browser.
-   Copilot then works only on the team documents, not on the lab text.
+   Its workspace is the team documents. This keeps the lab guide out of normal searches; it does not restrict
+   the tools to this folder.
 2. If VS Code asks whether you trust the authors of the folder, choose to trust it. It holds only text files.
 3. Open the Chat view and start a **New Chat**.
 
@@ -59,17 +60,18 @@ same. This job needs a decision on each one.
 
 This part shows what Copilot does when you ask for an answer.
 
-1. In the chat's mode picker choose **Plan**. Plan mode is made for research before any change: it reads and
-   searches your files and reports back. (On a Local session the picker may offer **Ask** instead; use that.)
+1. Choose **Ask** if available for a direct answer, otherwise **Plan**. Plan researches before implementation;
+   it may ask a question or create a session plan. You need the findings, not an implementation handoff.
 2. Paste this request:
 
    ```text
    Our product Orders Hub has been renamed Order Desk. Where does the old name
    appear in this folder, and which mentions should keep the old name?
-   Don't change anything.
+   Return the findings only; don't implement the rename or change project files.
    ```
 
-3. While it works, expand the steps in the chat. You will see it search for the name and open files.
+3. Expand the steps to see the search and file reads. If it asks about `#orders-hub-help`, say the channel still
+   uses that identifier. If a plan card appears, finish with the findings and leave implementation unstarted.
 
 What to look for:
 
@@ -85,14 +87,14 @@ Copilot answers, you act.
 
 Same job, but now the agent does it and checks it.
 
-1. Switch the mode picker to **Interactive**, the mode where the agent can edit files. (On a Local session choose
-   **Agent**.)
+1. Start a **New Chat** and choose **Interactive** or **Agent**, the mode that can edit. Decisions in the previous
+   chat are not automatically part of this one. Carry the channel decision into the task below.
 2. Paste this task:
 
    ```text
    Rename Orders Hub to Order Desk in this folder.
-   Keep the old name where it is history: past changelog entries and the customer's quoted message.
-   When you finish, search again and tell me every place the old name is left.
+   Keep past changelog entries, the customer's quoted message and #orders-hub-help unchanged.
+   Search for both the product name and channel identifier afterwards and report what remains.
    ```
 
    The three lines are the goal, the limit and the check. You will reuse this shape in every lab.
@@ -125,12 +127,12 @@ The agent says it is done. You decide whether it is.
 1. Search for `Orders Hub` again. Expect **4 results in 2 files**: the three changelog entries and the quote.
 2. Search for `Order Desk`. Expect **14 results in 7 files**. Open two of them and read the sentence: the agent had
    to handle "Orders Hub's export" and the lowercase "The orders hub remembers" so the sentences still read well.
-3. Search for `orders-hub`. You find the chat channel **#orders-hub-help** four times. Your search for the name
-   with a space did not catch it, and your task did not mention it. Did the agent change it? A document cannot
-   rename a chat channel; if the channel still has its old name, a new channel name in the documents sends people
-   nowhere. The safe choice is to keep it and ask whoever owns the channel. If the agent changed it, roll it back
-   (next step) or edit it back by hand.
-4. To roll back a whole request, hover over your request in the chat and select **Restore Checkpoint**. VS Code
+3. Search for `orders-hub`: expect **4 results in 4 files** for **#orders-hub-help**. Search for `order-desk-help`:
+   expect **0**. The task protected the actual channel identifier separately from the display name. A document
+   cannot rename a real channel. If the identifier changed, ask for those four edits to be restored.
+4. Open [the channel example](resources/channel-identifiers.md). It shows how a correct product-name count can
+   hide changed identifiers. A fresh chat needs decisions that still matter, even if another chat already made them.
+5. To roll back a whole request, hover over your request in the chat and select **Restore Checkpoint**. VS Code
    puts the files back as they were before that request. On a Local session you can also select **Keep** or
    **Undo** for each file.
 
@@ -158,8 +160,8 @@ checked the result with your own search, not with the agent's report.
 ## Challenge
 
 1. Restore the checkpoint from Part C and send the task without its second line (the limit). Search for
-   `Orders Hub` afterwards. Expected: the changelog entries and the quote are likely renamed too. The limit was
-   what protected them.
+   `Orders Hub` and both channel identifiers afterwards. Compare what changed with the protected version.
+   A capable model may keep them without being told; report your actual result, not an expected mistake.
 2. Give the agent a new task on the renamed folder: add a line to the top of `README.md` that says Orders Hub is
    now called Order Desk, and a changelog entry dated today that records the rename. Write it with a goal, a limit
    and a check. Expected: one new changelog entry at the top, the past entries unchanged, and the README line in

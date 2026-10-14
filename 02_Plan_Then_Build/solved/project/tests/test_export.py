@@ -1,10 +1,12 @@
 import contextlib
+from datetime import date
+from decimal import Decimal
 import io
 import tempfile
 import unittest
 from pathlib import Path
 
-from orders.report import export_monthly_csv, load_orders, main
+from orders.report import OrderLine, export_monthly_csv, load_orders, main
 
 
 class ExportTest(unittest.TestCase):
@@ -28,6 +30,13 @@ class ExportTest(unittest.TestCase):
         for line in self.read_lines()[1:]:
             revenue = line.split(",")[3]
             self.assertRegex(revenue, r"^\d+\.\d\d$")
+
+    def test_money_with_fewer_decimals_is_formatted(self):
+        for price in ("1.0", "1"):
+            with self.subTest(price=price):
+                order = OrderLine(1, date(2026, 1, 1), "North", "Test", 1, Decimal(price))
+                export_monthly_csv([order], self.output)
+                self.assertEqual(self.read_lines()[1], "2026-01,1,1,1.00")
 
     def test_existing_file_is_replaced(self):
         self.output.write_text("old line\n" * 20, encoding="utf-8")

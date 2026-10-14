@@ -63,7 +63,9 @@ when it has to guess.
    - Does it approve the request, although nothing has been built?
    - Does it say the tests pass? Nobody ran them in this chat.
    - What headings does it use?
-6. Select **Keep** above the file, so the review stays for the comparison in Part B.
+6. Keep the review, then copy it with Finder or File Explorer into a folder outside this project as
+   `baseline-CR-104.md`. Check that copy opens. Delete `reviews/CR-104.md` through the Explorer so the next
+   chat cannot copy its wording. Keep the source request, code and tests unchanged.
 
 Checkpoint: you have a review and an answer to each question. There is no right answer yet, because the team's
 habits are written nowhere Copilot can see. If your review looks fine, open
@@ -89,7 +91,8 @@ folder. You write it once; nobody has to paste it again.
    ```
 
    The first line tells Copilot where things are. The other three are habits from Part A's questions.
-3. Start a **New Chat**. It does not see Part A's conversation, so only the rules are new.
+3. Confirm `reviews/CR-104.md` is absent, then start a **New Chat**. Both the old conversation and its output
+   are out of the normal input. The repository rules are the intended difference.
 4. Paste exactly the same request as in Part A:
 
    ```text
@@ -97,10 +100,12 @@ folder. You write it once; nobody has to paste it again.
    and write the review to reviews/CR-104.md.
    ```
 
-5. Under the reply, expand **References**. `copilot-instructions.md` is listed: the rules went with the request,
-   although you never mentioned them.
-6. Copilot rewrites `reviews/CR-104.md`. Open it: the editor marks the lines Copilot changed, with **Keep** and
-   **Undo** buttons. Those marked lines are the difference the rules made. Select **Keep**.
+5. Expand **References** if available and inspect the steps or request details for instruction loading.
+   **Configure Chat > Instructions** shows discovery; listing a file there alone does not prove this response
+   used it. Check the owner line and test claims in the written review too.
+6. Compare the new review with your saved baseline. Wording can vary without either version being wrong.
+   Save a copy outside the project as `team-rules-CR-104.md`, then delete the project review before Part C.
+   Keep the saved comparisons out of subsequent agent requests.
 
 Checkpoint: the review has `Owner: unassigned` on its own line and names nobody else as owner. It does not say the
 tests pass; it says which checks are still to run, such as the tests in `tests/test_report.py`. The chat's list of
@@ -129,7 +134,7 @@ the rule when it creates or changes a file whose path matches. In `reviews/**`, 
    ```
 
    The lines between the two `---` are the header. Everything below them is the rule.
-2. Start a **New Chat** and paste the same request a third time:
+2. Confirm the earlier review is absent. Start a **New Chat** and paste the same request a third time:
 
    ```text
    Review requests/CR-104-csv-export.md against the current code
@@ -137,16 +142,26 @@ the rule when it creates or changes a file whose path matches. In `reviews/**`, 
    ```
 
 3. Expand the steps. Before it writes the review, Copilot may open `reviews.instructions.md`: it is about to change a
-   file that matches the pattern. Under the reply, **References** lists both rule files. Select **Keep**.
+   file that matches the pattern. References may list both rule files. Check the output as well as the loading
+   evidence. Save a copy outside the project as `scoped-rules-CR-104.md`.
 
 Checkpoint: the review has the headings Evidence, Decision and Next step, in that order, and the line
 `Review status: needs verification` under Decision, because nothing has been built or tested. Next step names a
 check and its file, for example the tests in `tests/test_report.py` plus a check that the January line of the CSV
 file reads `2026-01,8,174,2085.70`. `Owner: unassigned` is still there: the team rules still apply.
+If the headings appear but the status says `rejected`, the rule was only partly followed. Send:
+
+```text
+The scoped rule says to use needs verification when there are no test results.
+Correct the status in reviews/CR-104.md; keep the evidence and headings, and run no commands.
+```
+
+Check the actual file again. A loaded instruction is guidance, so output review is still necessary.
 
 Now ask for a file the pattern does not match. Predict first: will the reply to J. Park have the review headings?
 
-4. Start a **New Chat** and paste:
+4. After saving the scoped review, delete it from the project before starting a **New Chat**. This removes
+   a matching review the agent might read while drafting the reply. Paste:
 
    ```text
    Write a short reply to J. Park in replies/CR-104.md
@@ -155,9 +170,10 @@ Now ask for a file the pattern does not match. Predict first: will the reply to 
 
 5. Open `replies/CR-104.md` and expand **References**.
 
-Checkpoint: the reply has no Evidence, Decision or Next step headings and no `Review status` line. References lists
-`copilot-instructions.md` but not `reviews.instructions.md`, because `replies/CR-104.md` does not match
-`reviews/**`. The team rules still hold: the reply names no owner for the work and does not say any test passed.
+Checkpoint: the reply has no Evidence, Decision or Next step headings and no `Review status` line. Its path
+does not match `reviews/**`. Repository rules still apply: no invented owner or claim that tests passed.
+If the scoped rule appears in the trace, inspect whether the agent read or changed matching review files.
+Record that run separately and repeat with the earlier review absent before judging the pattern.
 
 | Rule file | Reaches |
 |---|---|
@@ -169,15 +185,15 @@ Checkpoint: the reply has no Evidence, Decision or Next step headings and no `Re
 | What you see | What to do |
 |---|---|
 | References does not list `copilot-instructions.md`, and the review ignores the rules | Check the path: `.github` must sit directly inside the folder you opened, next to `requests`. Open **Configure Chat** (the gear in the Chat view) > **Instructions** to see the rule files Copilot found. If you cloned the repository, copy `project` outside it (Before you start, step 1) and repeat Part B |
-| There is no References list under the reply | Expand the steps and look for a read of the rule file, or check Configure Chat > Instructions |
+| There is no References list under the reply | Inspect steps/request details and the output. Configure Chat confirms discovery only. Explicitly asking it to read the rule is a diagnostic, not evidence of automatic loading |
 | The review still uses its own headings after Part C | Check the file name ends in `.instructions.md`, the file is in `.github/instructions/`, and the header line is exactly `applyTo: "reviews/**"`. Then start a New Chat |
-| References for the reply lists the review rule | Look in the steps for a file in `reviews/` that the agent changed. Start a New Chat and ask again |
+| References for the reply lists the review rule | Check for a matching file read or change. Save and remove the earlier review, then repeat in a New Chat |
 | Copilot asks to run a command, such as the tests | Select **Skip**. Reviews here are read-only |
 
 ## What you can do now
 
-- Write team rules in `.github/copilot-instructions.md` and confirm in References that a request used them.
-- Run the same request before and after the rules and name each difference the rules caused.
+- Write team rules in `.github/copilot-instructions.md` and inspect loading evidence and the resulting file.
+- Compare a request before and after adding rules, while noting other differences in files read or model output.
 - Write a rule for one kind of file with `applyTo`, and show it reaches review files and not replies.
 - Decide whether a new rule belongs in every request or with one kind of file.
 
@@ -186,8 +202,9 @@ Checkpoint: the reply has no Evidence, Decision or Next step headings and no `Re
 1. **Write a rule for replies.** Add `.github/instructions/replies.instructions.md` with `applyTo: "replies/**"`.
    Your team wants every reply to start with `Hi` and the person's name, stay under 100 words, and end with a list
    headed `What we need from you`. In a New Chat, ask for the reply to J. Park again. Expected: the reply follows
-   all three, and References lists `replies.instructions.md` and not the review rule. Then ask for the CR-104
-   review in a New Chat: References lists the review rule, not yours.
+   all three. Inspect the steps or References where available for `replies.instructions.md`; a discovery list alone
+   does not establish loading. Then ask for the CR-104
+   review in a New Chat and inspect whether the reply-only rule stays out of that work.
 2. **Review a request that has an owner.** In a New Chat ask: `Review requests/CR-105-newest-month-first.md
    against the current code and write the review to reviews/CR-105.md.` Expected: `Owner: M. Novak`, because the
    request names one; `Review status: needs verification`; the three headings. A careful review also notices that
@@ -203,7 +220,9 @@ Answers to compare with when you finish, for the lab and the challenge: [`solved
   files before you trust it: a handover can claim a check that never ran. A line in `copilot-instructions.md`, such
   as `If HANDOVER.md exists, read it before you start`, asks for that in every chat.
 - **Let Copilot draft the rules.** Type `/init` in the chat: Copilot reads the project and writes a
-  `copilot-instructions.md`. Cut it to the rules your team agrees on. Long rules files are hard to keep true.
+  `copilot-instructions.md` on a Local session. Other session types can generate instructions through
+  **Configure Chat**. Review the draft against actual code and team decisions, and remove guessed conventions.
+  This is meta-prompting: ask the agent to draft its guidance, then check the draft.
 - **One file for several agents.** `AGENTS.md` at the top of the project is read by Copilot and by other coding
   agents. Keep one source for each rule, not copies in several files.
 - **A rule loaded by task.** A `description` line in the header lets Copilot load a rule when a request matches its
