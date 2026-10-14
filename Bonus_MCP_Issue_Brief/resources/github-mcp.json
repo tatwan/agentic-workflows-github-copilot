@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "X-MCP-Tools": "issue_read",
+        "X-MCP-Readonly": "true"
+      }
+    }
+  }
+}
