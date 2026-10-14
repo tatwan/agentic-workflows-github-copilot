@@ -198,11 +198,25 @@ Answers to compare with when you finish, for the lab and the challenge: [`solved
   chat to build it later, or to hand it to a teammate.
 - **Another language.** The same loop works on any project with tests, for example a Java service tested with
   `./mvnw test`: in the plan, ask for a test of exactly what the person asking will look at.
+- **A pull request summary.** If you work in a Git repository, ask the agent for a summary of the change for the
+  pull request, then read it against **View All File Changes**. The summary says what the agent meant to do; the
+  diff shows what it did. Check that every file in the diff is in the summary, and that the summary claims no test
+  you did not see pass.
+- **Hand the next change to the cloud agent.** For a change like the input guard in the challenge, on a repository
+  on GitHub: write an issue that states the check (`--output data/orders.csv stops with an error and leaves the file
+  unchanged`), then assign it to Copilot, or choose the **Cloud** session target in the chat input. It works on GitHub and opens a
+  pull request; you review that as you reviewed this diff. Your organisation decides whether the cloud agent is on.
+- **A second reviewer.** On that pull request, request a review from Copilot. Its comments are one more check;
+  your own review of the diff and the file is still the one that counts.
 - **Cost.** Open Copilot's usage view and read what this task cost. Lab 08 compares requests by cost.
 
 ## Resources
 
 - [Plan before you build](https://code.visualstudio.com/docs/agents/run/planning)
 - [Review the agent's edits and use checkpoints](https://code.visualstudio.com/docs/agents/run/review-code-edits)
+- [Ask Copilot to create a pull request](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/create-a-pr)
+  and [use Copilot code review](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/request-a-code-review/use-code-review)
+  (GitHub Docs)
+- [Which way of working](../guides/which-mode-when.md): Plan, Interactive, Autopilot, the cloud agent and the rest
 - [Python `unittest`](https://docs.python.org/3/library/unittest.html)
 - [Python `csv`](https://docs.python.org/3/library/csv.html) and [`decimal`](https://docs.python.org/3/library/decimal.html)
