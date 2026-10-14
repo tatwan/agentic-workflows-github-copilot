@@ -22,15 +22,19 @@ tell.
 | [06 Agent with limits](06_Agent_With_Limits/) | Make a reviewer agent that can only read, ask it to fix a bug and see that it cannot, then approve the normal agent's command | Copilot (Python optional) |
 | [07 Organise files and notes](07_Organize_Files_And_Notes/) | Get a plan as a table before anything moves, catch a look-alike that is not a duplicate, and approve one batch of moves | Copilot |
 | [08 Analyze data and cost](08_Analyze_Data_And_Cost/) | Turn a CSV of orders into a one-page report with a chart, check one number, then compare what two requests cost | Copilot |
+| [Bonus: Test-first change](Bonus_Test_First_Change/) | Reproduce a bug with a failing test, fix it, then refactor under the same tests; reuse the method as a skill | Copilot + Python |
+| [Bonus: MCP issue brief](Bonus_MCP_Issue_Brief/) | Connect to the official GitHub MCP server for an issue brief, or use Microsoft Learn documentation; inspect the actual tool result | Copilot + permitted MCP server |
 | [Bonus: SQL query review](Bonus_SQL_Query_Review/) | Ask for a faster version of a slow query, prove it returns the same rows, then time it | Copilot + uv |
 
 Where to start:
 
 - **Everyone:** 00, 01, 04, 05, 07 and 08.
-- **Developers:** add 02 and 06.
+- **Developers:** add 02, 06 and the test-first bonus.
 - **Data and SQL work:** add 03 and the SQL bonus.
 
 Do Lab 00 first. After that each lab stands on its own; the numbers give a sensible order, not a required one.
+All full labs and bonuses are optional practice after the webinar. The webinar uses selected examples; you do not
+need to finish this list during the session. For customization first, try 04, 05 and 06 after setup.
 When you know the basics, [which way of working](guides/which-mode-when.md) puts the choices side by side: from a
 suggestion as you type to an agent that opens a pull request.
 
@@ -41,7 +45,8 @@ suggestion as you type to an agent that opens a pull request.
 | Setup | You need | Labs |
 |---|---|---|
 | Copilot only | VS Code with the GitHub Copilot extension, signed in with the account that holds your Copilot seat | 00, 01, 04, 05, 06, 07, 08 |
-| + Python | Python 3.10 or newer. Nothing to install with it: these labs use only what ships with Python | 02, and the optional tests in 06 |
+| + Python | Python 3.10 or newer. Nothing to install with it: these labs use only what ships with Python | 02, the test-first bonus, and the optional tests in 06 |
+| + MCP access | Organisation policy permits the official GitHub or Microsoft Learn MCP endpoint; GitHub may require sign-in | MCP bonus |
 | + uv | [uv](https://docs.astral.sh/uv/getting-started/installation/). The first time a lab runs, it downloads dbt or DuckDB, and a Python if your computer has none | 03 and the SQL bonus |
 
 Most people never need more than the first row. Everything runs in VS Code on your own computer; there is no
@@ -52,7 +57,7 @@ Codespaces setup.
 1. On this repository's GitHub page, select **Code > Download ZIP** and unzip it anywhere. You do not need Git.
 2. Work through [Lab 00](00_Setup_Check/). It ends with a table of the labs your setup is ready for.
 
-If you prefer Git, clone the repository instead. For Labs 04, 05 and 06, copy the lab's `project` folder to a place
+If you prefer Git, clone the repository instead. For Labs 04, 05, 06 and the skill challenge in the test-first bonus, copy the lab's `project` folder to a place
 outside the clone and open the copy. Those labs add a rule file, a skill or an agent inside `project`, and inside a
 clone Copilot may look for them at the top of the repository and miss them. A ZIP download needs no copy.
 
@@ -60,8 +65,8 @@ clone Copilot may look for them at the top of the repository and miss them. A ZI
 
 Each lab folder holds a `README.md` and a `project` folder. In VS Code choose **File > Open Folder** and open the
 lab's `project` folder, not the lab folder or the whole repository. Read the README somewhere else, for example on
-GitHub in your browser. Copilot then works on the lab's files, and the lab text and the prepared examples next to
-`project` are not part of what it searches.
+GitHub in your browser. This keeps the task files separate from the guide and prepared answers. Opening a folder does not itself create
+a filesystem access boundary; review paths in the agent's steps.
 
 If VS Code asks whether you trust the authors of the folder, trust it: Copilot's agent features are off in a folder
 you have not trusted.
