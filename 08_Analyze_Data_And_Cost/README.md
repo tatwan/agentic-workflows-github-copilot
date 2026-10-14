@@ -12,7 +12,8 @@ do the same job again with one tighter request in a new chat, and compare the tw
 - Ask an agent for a report from a CSV file and open what it made, chart included.
 - Work out one number from the data before you read the report, and check the report against it.
 - Read what a chat cost: the credits for each response, the session and the month.
-- Write one request that says what counts, what to produce and what not to do, and compare it with your first try.
+- Write one request that says what counts, what to produce and what not to do, attach the file it needs, and
+  compare it with your first try.
 
 ## Before you start
 
@@ -133,18 +134,22 @@ and writes, the more it costs.
 4. Look at the follow-up from Part C: two lines, but the model read far more. Each turn sends the model the whole
    conversation so far: your requests, the CSV, the report it wrote, any command output. So a follow-up that fixes
    a vague request is never free.
-5. Now ask once, saying up front what Parts B and C had to add later. Start a **New Chat** (it starts with no
-   history), keep **Interactive** and the same model, and paste:
+5. Now ask once, saying up front what Parts B and C had to add later, and hand the agent the file instead of
+   letting it look for it. Start a **New Chat** (it starts with no history) and keep **Interactive** and the same
+   model. Drag `data/orders-2026-q1.csv` from the Explorer onto the chat input, or select **Add Context** >
+   **Files & Folders**, or type `#` and pick the file. It shows above the input as attached. Then paste:
 
    ```text
-   Write a one-page Markdown report for the shop owner in report/q1-sales.md from data/orders-2026-q1.csv.
+   Write a one-page Markdown report for the shop owner in report/q1-sales.md from the attached orders file.
    Count completed orders only, and say how many cancelled orders were left out and what they were worth.
    Include total revenue and orders, revenue by product as a table, and revenue by month as a bar chart
    saved as report/revenue-by-month.svg and shown in the report.
-   Use only data/orders-2026-q1.csv, and don't install anything.
+   Use only that file, and don't install anything.
    ```
 
-6. Open `report/q1-sales.md` in the preview and check Gift box again: 172.50, and a line about 3 cancelled orders.
+6. Expand the steps and compare them with the first chat: with the file attached, the agent usually starts from
+   it instead of searching the folder first. Open `report/q1-sales.md` in the preview and check Gift box again:
+   172.50, and a line about 3 cancelled orders.
 7. Hover over the response and note its credits. Then fill in this table for your two chats:
 
    | | First chat (Parts B and C) | Second chat (one request) |
@@ -176,8 +181,8 @@ the conversation.
 - Ask Copilot for a report from a CSV file and open it, chart included.
 - Work out one number from the data first and use it to test the report's rule and its sums.
 - Read the credits for a response, a chat and the month.
-- Write a request that settles the rule, the output and the limits up front, and compare what it cost with your
-  first try.
+- Write a request that settles the rule, the output and the limits up front, attach the file it needs, and compare
+  what it cost with your first try.
 
 ## Challenge
 
@@ -193,6 +198,17 @@ Answers to compare with when you finish, for the lab and the challenge: [`solved
 
 ## Going further
 
+- **Research from sources, with a check.** The same habit works on the web. In a New Chat, paste:
+
+  ```text
+  Read https://code.visualstudio.com/docs/agents/guides/optimize-usage and
+  https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-individuals.
+  In five bullets: what uses AI credits, and where can I see my usage? After each bullet, name the page it came from.
+  ```
+
+  VS Code asks before it fetches each page; read the address and allow it once. Then pick one bullet, open its page
+  and find the sentence it came from. A bullet you cannot find on its page is the agent's own idea, however
+  reasonable it sounds.
 - **Shorter chats.** Start a new chat when you change topic. `/compact` replaces older turns with a summary, and
   `/fork` (or **Fork Conversation**) branches a chat without repeating what came before.
 - **Model choice.** Hover over a model in the model picker to see its cost tier. A cheaper model that needs two
