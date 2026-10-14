@@ -127,6 +127,20 @@ downloads one first; Python is not needed for this row.
 Rows 1 to 4 ✅: you are ready for Labs 01, 04, 05, 06, 07 and 08. Add row 5 for Lab 02, and row 6 for Lab 03 and
 the SQL bonus.
 
+## Before you go: the quicker ways in
+
+The labs use the Chat view, where Copilot plans and acts across files. For a change to what is in front of you, there
+are quicker ways, and they are what you will use most of the day:
+
+- **Inline suggestions:** in a code file, Copilot offers grey text as you type; **Tab** accepts it. Next edit
+  suggestions then offer the related edit somewhere else in the file.
+- **Inline chat:** select some text and press **Ctrl+I** (**Cmd+I** on macOS). Try it now: open `team-notes.md`,
+  select the two lines under Team lunch, press Ctrl+I and type `Make this a bulleted list`. The change appears in
+  place, for you to keep or undo. Select **Undo** (**Discard** on some versions), so the file is as it was.
+
+Which to use when, from a suggestion as you type to an agent that opens a pull request:
+[which way of working](../guides/which-mode-when.md).
+
 ## If a check fails
 
 | What you see | What to do |
