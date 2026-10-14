@@ -11,5 +11,7 @@ your team, and test it before you share it.
 
 What each kind of file is for, and when to choose it: [guides/customization-options.md](../guides/customization-options.md).
 
+Lab 05, Part E installs `skills/release-notes` the way a team shares a skill: by copying the folder.
+
 The files you write in the labs are not here: Lab 04 writes two instructions files, Lab 05 the `meeting-actions`
 skill and Lab 06 a reviewer agent, each inside that lab's `project/.github/` folder.
