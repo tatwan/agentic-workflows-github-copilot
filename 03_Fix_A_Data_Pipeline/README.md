@@ -214,6 +214,13 @@ Answers to compare with when you finish, for the lab and the challenge: [`solved
   for orders 1 and 4.
 - **Make the rule permanent.** Add a line such as `Never loosen or delete a test to make a build pass; ask me
   first.` to `.github/copilot-instructions.md`, as in [Lab 04](../04_Team_Rules/).
+- **Connect Copilot to dbt itself.** In this lab the agent runs dbt through the terminal and reads the files. An MCP
+  server gives it dbt as tools instead: the [dbt MCP server](https://github.com/dbt-labs/dbt-mcp) offers `build`,
+  `test`, `show` and lineage of a model, and works with dbt Core projects like this one. It is configured in
+  `.mcp.json` (or `.vscode/mcp.json`), and with Manual permissions VS Code can ask before each tool call. Its dbt
+  commands can change your models and warehouse objects, so read each call before you allow it, and check whether
+  your organisation allows MCP servers first. The same idea connects Copilot to Databricks, a database or a ticket
+  system.
 - **Speed up a query without changing its answer.** The [SQL bonus](../Bonus_SQL_Query_Review/) uses the same
   habit on a slow SQL query: say what must stay the same, prove the rows match, and only then time it.
 
@@ -225,3 +232,4 @@ Answers to compare with when you finish, for the lab and the challenge: [`solved
 - [Review the agent's edits and use checkpoints](https://code.visualstudio.com/docs/agents/run/review-code-edits)
 - [Approvals and permissions](https://code.visualstudio.com/docs/agents/run/approvals)
 - [Working on projects with uv](https://docs.astral.sh/uv/guides/projects/)
+- [Add and manage MCP servers in VS Code](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
