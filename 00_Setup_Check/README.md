@@ -21,7 +21,8 @@ You need VS Code with the GitHub Copilot extension and a Copilot seat. Rows 1 to
    already cloned the repository, use your clone.
 2. In VS Code choose **File > Open Folder** and open the `project` folder inside this lab
    (`00_Setup_Check/project`). Keep this README open somewhere else, for example on GitHub in your browser.
-3. If VS Code asks whether you trust the authors of the folder, trust it. It holds two text files.
+3. In the Explorer, check that `team-notes.md` is at the top level. If you see all the numbered labs, reopen
+   `00_Setup_Check/project`. If VS Code asks whether you trust this supplied project, trust it.
 
 Each Copilot request uses a little of your monthly allowance. This check sends two to four short requests.
 
@@ -45,19 +46,21 @@ Plan, or Agent instead of Interactive, use those. Manual permissions means Copil
 
 ## 3. Copilot finds an answer in a file
 
-1. In the mode picker choose **Plan**.
+1. Choose **Ask** if your session offers it. Otherwise use **Interactive** or **Agent** for this small read request.
+   You are asking it to leave files unchanged; this request does not remove its tools.
 2. Paste this request:
 
    ```text
    When and where is the next team lunch, and who do I tell if I can't come?
-   Say which file you read.
+   Read team-notes.md and answer only; leave the files unchanged.
    ```
 
 3. When the reply arrives, expand the steps shown in it.
 
 Pass: the reply says Thursday 22 October at 12:30, at Olive Tree on Market Street, and that you tell Sam by Tuesday.
-The steps show that Copilot read `team-notes.md`. Open the file yourself and compare. No file changed. Copilot
-could only know those facts from the file, so a right answer means it read it.
+The steps show that Copilot read `team-notes.md`. Open the file yourself and compare. No project file changed. Confirm the read in the steps as well as the facts in the reply.
+For a larger investigation, Plan is useful; it can also create a session plan and ask questions, which this
+setup check does not need.
 
 ## 4. Copilot asks before it runs a command
 
