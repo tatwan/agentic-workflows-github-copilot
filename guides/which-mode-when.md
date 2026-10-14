@@ -1,12 +1,11 @@
 # Which way of working: pick by the task
 
-Checked 13 Oct 2026 against the VS Code docs. Copilot changes monthly, and your organisation may have turned some of
+Checked 14 Oct 2026 against the VS Code docs. Copilot changes monthly, and your organisation may have turned some of
 these off; check the VS Code docs before you rely on a detail here.
 
 Copilot in VS Code offers several ways to work, from a suggestion as you type to an agent that opens a pull request
 while you do something else. They differ in two things: **how much Copilot decides on its own**, and **when you
-check its work**. Pick the smallest one that does the job; a bigger one costs more credits and leaves more for you
-to review.
+check its work**. Pick the smallest one that does the job; broader work can add usage and leave more for you to review.
 
 ## Start from the task
 
@@ -15,7 +14,7 @@ to review.
 | Finish the line or block you are typing | **Inline suggestions** (grey text; Tab accepts) and **next edit suggestions** (the related edit it offers next) | Each suggestion, before you accept it | — |
 | Change or explain the code you have selected, right where it is | **Inline chat**: Ctrl+I (Cmd+I on macOS) in the editor | The diff in the editor: Keep or Undo | [00](../00_Setup_Check/), last section |
 | Write a commit message, rename a symbol, fix one error | The sparkle actions in Source Control and in the editor's right-click menu | The message or the change | — |
-| Understand a project, research a question, or decide how before anything changes | **Plan** (on some setups **Ask**): reads and searches, changes nothing | The answer or the plan, before you act on it | [01](../01_How_An_Agent_Works/), [02](../02_Plan_Then_Build/) |
+| Understand a project, research a question, or decide how before anything changes | **Ask** for an explanation where available; **Plan** for an implementation approach: inspect its actions and plan artifact | The answer or the plan, before you act on it | [01](../01_How_An_Agent_Works/), [02](../02_Plan_Then_Build/) |
 | A change across files, with a check that shows whether it worked | **Interactive** (or **Agent**) with **Manual permissions**: edits files, stops before most commands | The plan, each command before it runs, the diff and the result | [01](../01_How_An_Agent_Works/)–[03](../03_Fix_A_Data_Pipeline/), [07](../07_Organize_Files_And_Notes/), [08](../08_Analyze_Data_And_Cost/) |
 | A longer change with a check you already trust | **Autopilot**: carries on with fewer stops | The diff and the result at the end | [01](../01_How_An_Agent_Works/) and [02](../02_Plan_Then_Build/), Going further |
 | A job the team repeats, done the same way each time | A **skill**, called with `/name` | The output against the method | [05](../05_Make_A_Skill/) |
@@ -28,7 +27,7 @@ Inline suggestions and next edit suggestions are not billed in AI credits; chat 
 
 ## Three questions that settle most choices
 
-1. **Do you want an answer or a change?** An answer: Plan (or Ask). A change: Interactive (or Agent), or inline
+1. **Do you want an answer or a change?** An answer: Ask where available, or a brief read-only request. An implementation approach: Plan. A change: Interactive (or Agent), or inline
    chat if the change is in front of you.
 2. **Can you tell, quickly, whether the result is right?** If yes, let the agent act and run the check. If not,
    work out the check first, as every lab's Part A does, or ask for a plan before any change.
@@ -45,14 +44,14 @@ The agent finds files by searching, but you can hand it what it needs and save a
 - Select code in the editor before you ask, and the selection goes with the request.
 - Attach a screenshot, or paste a URL and VS Code asks before it fetches the page.
 
-Everything you attach is re-sent on every turn of that chat, so attach what the task needs and start a New Chat
-when the task changes. [Lab 08](../08_Analyze_Data_And_Cost/) Part D attaches a file and compares the cost.
+Attached context and earlier tool results can carry into later model calls, subject to selection, caching and
+compaction. Attach what the task needs and start a New Chat when the task changes. [Lab 08](../08_Analyze_Data_And_Cost/) Part D attaches a file and compares the cost.
 
 ## Names differ by setup
 
 | Behaviour | Labels you may see |
 |---|---|
-| Reads and plans, changes nothing | Plan, Ask |
+| Answers or proposes an implementation approach | Ask, Plan; Plan may create a plan artifact |
 | Acts, stops before most commands | Interactive, Agent |
 | Acts with fewer stops | Autopilot |
 

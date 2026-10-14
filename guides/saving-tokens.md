@@ -1,65 +1,42 @@
-# Saving tokens and AI credits
+# Comparing usage for a correct result
 
-Checked 6 Oct 2026 against GitHub Docs. Rates and allowances change; check GitHub's models-and-pricing page
-before you budget.
+Checked 14 October 2026 against [GitHub's billing explanation](https://docs.github.com/en/copilot/concepts/billing-and-usage/individuals/billing)
+and [VS Code's usage guide](https://code.visualstudio.com/docs/agents/guides/optimize-usage).
+Rates, allowances and UI controls can change; use the current documentation for your plan.
 
-## How a request is billed
+## What affects usage
 
-Since 1 June 2026, chat, agent and other AI features in Copilot bill in **AI credits**. One AI credit
-is $0.01 of model usage, worked out from the tokens a request uses and that model's prices. Code completions
-and next edit suggestions are not billed.
+Copilot model requests consume tokens: input, output and cached context can have different prices. GitHub converts
+this usage to AI credits; one credit represents $0.01 USD. A visible chat response can involve several model calls
+and tool results. Code completions and next edit suggestions are not billed in AI credits on paid plans.
 
-```text
-cost    = new input tokens x input price
-        + cached tokens    x cached-input price
-        + cache-write tokens x cache-write price   (Anthropic and newer OpenAI models)
-        + output tokens    x output price          (prices per million tokens)
-credits = cost / $0.01
-```
+Avoid estimating a task's cost from its last message or the length of its visible transcript. Context selection,
+caching and compaction can change the billed input. A long follow-up can reuse cached context; a short message can
+still require substantial new work. Exact rates and discounts belong in the current pricing page rather than a
+fixed example in this guide.
 
-Output costs about 5 to 8 times input, because the model needs one pass for each token it writes. Cached
-input costs about a tenth of input, because the provider reuses work it already did for the same prefix.
+## Make the comparison useful
 
-**Worked example** (ILLUSTRATIVE token counts, Claude Sonnet 5.5 prices checked 6 Oct 2026): one agent turn
-sends 40,000 tokens, 32,000 of them cached, and writes 1,200. New input 8,000 x $2.00 = 1.60 credits; cached
-32,000 x $0.20 = 0.64; output 1,200 x $10.00 = 1.20; total 3.44 credits. With nothing cached the same turn
-costs 9.20 credits; on GPT-5 mini, 0.52.
-
-## Why long sessions cost more
-
-Each agent turn sends the context window again: system instructions, tool definitions, instructions files,
-the conversation so far and every tool result. History and tool results grow every turn, so a long session
-costs more than its last message suggests. These reset the cache, so the next turn pays full input price:
-switching model, returning to an old session after the cache has expired, changing reasoning level or
-context size, adding or removing tools or MCP servers.
-
-When the window fills, Copilot compacts older conversation into a summary; `/compact` does it on request.
-The summary can drop details. For an unrelated task, start a new chat instead.
-
-## Habits that cut usage
-
-| Habit | Why it helps |
+| Keep or record | Why |
 |---|---|
-| Pick the model tier for the task | A small model is often enough for a well-scoped change |
-| Give a clear task, context and stopping condition | Fewer turns spent searching and guessing |
-| Start a fresh chat for an unrelated problem | A long thread re-sends its whole history every turn |
-| Keep one model per session | Switching resets the cache |
-| Research, plan, then implement, as separate steps | Each step stays short and checkable |
-| Use tests and linters to catch errors early | Fewer turns spent fixing late mistakes |
+| The same input files and correctness checks | A wrong report is not a cheaper equivalent result |
+| Separate untouched workspace copies and New Chats | Earlier generated files can supply the second answer |
+| Model, mode and selected tools | Different settings can explain a difference in usage |
+| Every turn, repair and retry | The whole task is the comparison unit |
+| Permission waits and elapsed time | Waiting on a person differs from model processing time |
+| More than one run of each approach | One pair shows an observation, not a general saving |
 
-Auto model selection takes 10% off model costs on paid plans. Keep instructions files short: they are
-re-sent with every request.
+A fixed model helps a controlled comparison. If your plan only offers Auto, record that constraint and the routed
+model if visible; do not claim the model was held constant. Start a new chat when the task changes. Keep a short
+record of decisions to carry into the next chat instead of assuming it remembers them.
 
-Compare runs by **credits per correct result**, not credits per run. A cheap run that fails and is redone
-costs more.
+## Read the numbers your UI exposes
 
-## Where to see what you used
+Hover over responses for per-response credits where available. Some sessions expose a context control with tokens
+and session usage; others do not. The Copilot status dashboard and account usage pages show allowance or cycle
+usage. A monthly percentage cannot isolate one lab. Write `unavailable` when no per-task figure is visible, and
+compare correctness, steps and elapsed time instead of inventing a credit total.
 
-| Where | What it shows |
-|---|---|
-| Copilot status dashboard (VS Code status bar) | Percentage of your monthly AI credits used |
-| Context window control (chat input) | Tokens, breakdown, credits for this session |
-| Business, Enterprise: Copilot settings, Usage | Usage this cycle, out of your user budget if one is set |
-| Individual plans: Billing and licensing, AI usage | Your usage over time |
-
-[Lab 08](../08_Analyze_Data_And_Cost/README.md) reads these numbers for a real task, then does the same task with one tighter request in a new chat and compares the credits.
+[Lab 08](../08_Analyze_Data_And_Cost/) compares two report workflows against the same completed-sales totals. Keep
+the generated reports and your comparison sheet with the completed folders. A clear request can remove avoidable
+decisions and repairs; check the actual result before concluding it saved time or credits.
